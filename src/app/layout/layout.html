@@ -1,0 +1,41 @@
+<div class="flex flex-col h-screen w-full bg-[#f8f9fa] text-slate-800 font-sans overflow-hidden">
+  
+  <!-- NAVBAR SUPERIOR -->
+  <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 z-50 relative shadow-sm">
+    
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-teal-700 grid place-items-center text-white shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </div>
+      <div class="leading-tight">
+        <div class="font-bold text-slate-900 text-lg tracking-tight">Voz Urbana</div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Plataforma Vecinal</div>
+      </div>
+    </div>
+
+    <!-- Enlaces de Navegación (Centro) -->
+    <nav class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
+      <a routerLink="/mapa" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Explorar Mapa</a>
+      <a routerLink="/reportar" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Reportar Incidencia</a>
+      <a routerLink="/seguimientos" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Mis Seguimientos</a>
+      <a routerLink="/gestion" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Gestión (CRUD)</a>
+    </nav>
+
+    <!-- Acciones (Derecha) -->
+    <div class="flex items-center gap-4">
+      <div class="relative hidden lg:block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        <input type="text" placeholder="Buscar..." class="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 w-64">
+      </div>
+    </div>
+  </header>
+
+  <!-- ÁREA DE CONTENIDO -->
+  <main class="flex-1 overflow-auto relative">
+    <router-outlet></router-outlet>
+  </main>
+</div>

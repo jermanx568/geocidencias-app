@@ -1,0 +1,38 @@
+<div class="p-8 h-full overflow-y-auto bg-[#f8f9fa]">
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-slate-50 border-b border-slate-200">
+        <tr>
+          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Reporte</th>
+          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Parroquia</th>
+          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Estatus</th>
+          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr *ngFor="let inc of incidencias" class="hover:bg-slate-50/80 transition-colors">
+          <td class="p-5">
+            <div class="font-semibold text-slate-800 text-sm">{{ inc.title }}</div>
+            <div class="text-xs text-slate-500 mt-1 line-clamp-1">{{ inc.desc }}</div>
+          </td>
+          <td class="p-5 text-sm text-slate-600 font-medium">{{ inc.par }}</td>
+          <td class="p-5">
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase"
+                  [ngClass]="{
+                    'bg-red-50 text-red-700': inc.st === 'pendiente',
+                    'bg-amber-50 text-amber-700': inc.st === 'proceso',
+                    'bg-green-50 text-green-700': inc.st === 'resuelto'
+                  }">
+              {{ inc.st }}
+            </span>
+          </td>
+          <td class="p-5 text-sm text-slate-500">{{ inc.date }}</td>
+          <td class="p-5 text-right">
+            <button (click)="irAlMapa()" class="text-sm font-semibold text-teal-600 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-lg transition-colors">Ver en mapa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

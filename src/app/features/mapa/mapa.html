@@ -1,0 +1,67 @@
+<div class="relative w-full h-full">
+  <div id="map" class="absolute inset-0 z-0 bg-[#e5e7eb]"></div>
+  
+  <!-- BOTONES DE FILTRO FLOTANTES -->
+  <div class="absolute top-6 left-6 z-10 flex gap-2">
+    <button class="bg-teal-800 shadow-md px-4 py-2 rounded-lg text-sm font-bold text-white hover:bg-teal-900 transition-colors">
+      Todos
+    </button>
+    <button class="bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-red-600"></span> Pendientes
+    </button>
+    <button class="bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-amber-500"></span> En Proceso
+    </button>
+    <button class="bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-green-600"></span> Resueltos
+    </button>
+  </div>
+
+  <!-- Panel Lateral Flotante -->
+  <div class="absolute top-6 right-6 z-10 w-[400px] bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex flex-col max-h-[calc(100vh-6rem)] overflow-hidden border border-slate-100">
+    
+    <div class="p-5 border-b border-slate-100">
+      <h2 class="font-bold text-lg text-slate-800">Incidencias en Curso</h2>
+      <p class="text-xs text-slate-500 mt-1">Mostrando {{ incidencias.length }} de {{ incidencias.length }} registradas</p>
+    </div>
+
+    <div class="overflow-y-auto p-4 space-y-4 bg-slate-50/50">
+      <div *ngFor="let inc of incidencias" class="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer group">
+        
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md"
+                [ngClass]="{
+                  'text-teal-700 bg-teal-50': inc.cat === 'agua',
+                  'text-amber-700 bg-amber-50': inc.cat === 'electrico',
+                  'text-orange-700 bg-orange-50': inc.cat === 'vialidad'
+                }">
+            {{ inc.cat | titlecase }}
+          </span>
+          <span class="text-xs text-slate-400 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            {{ inc.date }}
+          </span>
+        </div>
+
+        <h3 class="font-bold text-sm text-slate-800 mb-1 group-hover:text-teal-700 transition-colors">{{ inc.title }}</h3>
+        <p class="text-xs text-slate-500 mb-3 line-clamp-2 leading-relaxed">{{ inc.desc }}</p>
+
+        <div class="flex items-center gap-1.5 text-xs text-slate-600 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          <span class="font-medium">{{ inc.par }}</span>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+          <span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            Vecinos afectados
+          </span>
+          <button class="text-xs font-bold text-teal-700 hover:text-teal-800 flex items-center gap-1">
+            Ver detalle
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

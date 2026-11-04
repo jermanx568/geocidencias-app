@@ -1,0 +1,97 @@
+<div class="max-w-5xl mx-auto p-8 py-10">
+  
+  <div class="mb-8">
+    <div class="flex items-center gap-2 text-rose-600 text-xs font-bold tracking-widest uppercase mb-3">
+      <span class="w-2 h-2 rounded-full bg-rose-600"></span>
+      Fiscalización Vecinal Colaborativa
+    </div>
+    <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Reportar Nueva Incidencia Urbana</h1>
+    <p class="text-slate-500 text-lg max-w-2xl">Tu reporte ayuda a que el municipio priorice soluciones donde más se necesita. Cada registro es trazable y visible para todos los vecinos.</p>
+  </div>
+
+  <div class="flex items-center gap-4 bg-slate-100/50 p-2 rounded-2xl mb-8 overflow-x-auto">
+    <div class="flex-1 flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm border border-slate-200 min-w-[200px]">
+      <div class="w-8 h-8 rounded-full bg-teal-800 text-white flex items-center justify-center font-bold text-sm">1</div>
+      <div><div class="font-bold text-sm text-slate-800">Ubicación</div><div class="text-[10px] text-slate-500 uppercase font-semibold">Punto exacto o calle</div></div>
+    </div>
+    <div class="flex-1 flex items-center gap-3 p-3 rounded-xl opacity-50 min-w-[200px]">
+      <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">2</div>
+      <div><div class="font-bold text-sm text-slate-800">Categoría</div><div class="text-[10px] text-slate-500 uppercase font-semibold">Tipo de afectación</div></div>
+    </div>
+    <div class="flex-1 flex items-center gap-3 p-3 rounded-xl opacity-50 min-w-[200px]">
+      <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">3</div>
+      <div><div class="font-bold text-sm text-slate-800">Detalles</div><div class="text-[10px] text-slate-500 uppercase font-semibold">Fotos y gravedad</div></div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2 space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-slate-800">Paso 1 de 4: Ubicación del suceso</h2>
+          <span class="text-xs font-semibold text-slate-500 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Coordenadas UTM</span>
+        </div>
+
+        <div class="bg-rose-50 border border-rose-100 rounded-xl p-4 mb-6 flex gap-3 text-rose-800">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <div><span class="font-bold text-sm">Permiso de geolocalización no disponible</span><p class="text-xs mt-1">No te preocupes: puedes mover el pin en el visor interactivo o redactar la dirección manual.</p></div>
+        </div>
+
+        <div class="relative mb-6">
+          <svg class="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input type="text" placeholder="Calle San Martín 385, frente a Plaza de Armas" class="w-full pl-12 pr-32 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium text-slate-700">
+          <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm hover:bg-slate-50">Detectar GPS</button>
+        </div>
+
+        <div class="bg-slate-200 h-64 rounded-xl border border-slate-300 relative overflow-hidden flex items-center justify-center">
+           <div class="bg-teal-900 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg> Arrastra para ajustar</div>
+        </div>
+
+        <div class="mt-6 flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-bold">A</div>
+          <div class="flex-1">
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Punto Georreferenciado</div>
+            <div class="text-sm font-bold text-slate-800">Calle San Martín 385, frente a Plaza de Armas (Zona Centro)</div>
+          </div>
+          <button class="text-sm font-bold text-slate-500 underline hover:text-slate-800">Cambiar</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-800 mb-4">Detalles del Reporte</h3>
+        
+        <label class="block text-sm font-bold text-slate-700 mb-2">Título de la incidencia</label>
+        <input type="text" [(ngModel)]="titulo" placeholder="Ej: Bache profundo en la avenida" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+        
+        <label class="block text-sm font-bold text-slate-700 mb-2">Descripción</label>
+        <textarea [(ngModel)]="descripcion" rows="3" placeholder="Describe el problema con el mayor detalle posible..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"></textarea>
+      </div>
+      
+      <button (click)="guardarReporte()" class="w-full bg-teal-800 hover:bg-teal-900 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5">
+        Enviar Reporte y Ver en Mapa
+      </button>
+    </div>
+
+    <div class="space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ¿Qué sucede después de reportar?</h3>
+        
+        <div class="space-y-6 relative before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+          <div class="relative flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-slate-100 border-2 border-white text-slate-600 flex items-center justify-center font-bold text-xs z-10 shrink-0">1</div>
+            <div><h4 class="text-sm font-bold text-slate-800">Validación y alerta al barrio</h4><p class="text-xs text-slate-500 mt-1">El reporte se publica en el mapa vecinal y notifica a personas en un radio de 500 metros.</p></div>
+          </div>
+          <div class="relative flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-slate-100 border-2 border-white text-slate-600 flex items-center justify-center font-bold text-xs z-10 shrink-0">2</div>
+            <div><h4 class="text-sm font-bold text-slate-800">Suma de apoyos comunitarios</h4><p class="text-xs text-slate-500 mt-1">Tus vecinos pueden votar y añadir comentarios para acelerar la prioridad municipal.</p></div>
+          </div>
+          <div class="relative flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-rose-100 border-2 border-white text-rose-600 flex items-center justify-center font-bold text-xs z-10 shrink-0">3</div>
+            <div><h4 class="text-sm font-bold text-slate-800">Asignación de folio oficial</h4><p class="text-xs text-slate-500 mt-1">Se vincula automáticamente al sistema municipal bajo el registro único:</p><span class="inline-block mt-2 bg-slate-100 text-slate-600 text-[10px] font-mono font-bold px-2 py-1 rounded">#INC-2025-8949</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

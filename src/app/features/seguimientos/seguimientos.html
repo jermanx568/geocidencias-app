@@ -1,0 +1,185 @@
+<div class="max-w-[1200px] mx-auto p-8 py-10 space-y-8">
+  
+  <!-- Header del Perfil -->
+  <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-teal-800 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            Vecina Certificada
+          </span>
+          <span class="text-xs text-slate-500 font-medium">ID #BA-9941</span>
+        </div>
+        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Hola, {{ nombreUsuario }} | Tu actividad cívica en Maracaibo</h1>
+        <p class="text-slate-500 max-w-2xl">Monitoreo activo de cuadrillas municipales, resolución de infraestructura crítica y validación colectiva de obras en tu cuadrante urbano.</p>
+      </div>
+      
+      <div class="flex gap-3 shrink-0">
+        <button class="bg-white border border-slate-300 text-slate-700 px-4 py-2.5 rounded-lg font-semibold text-sm shadow-sm hover:bg-slate-50 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Exportar Bitácora
+        </button>
+        <button routerLink="/reportar" class="bg-rose-700 hover:bg-rose-800 text-white px-5 py-2.5 rounded-lg font-semibold text-sm shadow-sm flex items-center gap-2 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          Nuevo Reporte Vecinal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjetas de Estadísticas (KPIs) -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <div class="flex justify-between items-start text-slate-400 mb-4"><span class="text-xs font-bold uppercase tracking-wider text-slate-600">Reportes Creados</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+      <div><div class="text-3xl font-extrabold text-slate-900">3</div><div class="text-xs text-slate-500 mt-1">Iniciados por ti</div></div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <div class="flex justify-between items-start text-slate-400 mb-4"><span class="text-xs font-bold uppercase tracking-wider text-slate-600">Seguidos Activas</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg></div>
+      <div><div class="text-3xl font-extrabold text-slate-900">8</div><div class="text-xs text-slate-500 mt-1">con "También me afecta"</div></div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <div class="flex justify-between items-start text-slate-400 mb-4"><span class="text-xs font-bold uppercase tracking-wider text-slate-600">Vecinos Apoyados</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+      <div><div class="text-3xl font-extrabold text-slate-900">142</div><div class="text-xs text-slate-500 mt-1">en tu radio (1.2 km)</div></div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <div class="flex justify-between items-start text-slate-400 mb-4"><span class="text-xs font-bold uppercase tracking-wider text-slate-600">Obras Resueltas</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+      <div><div class="text-3xl font-extrabold text-slate-900">4</div><div class="text-xs text-slate-500 mt-1">100% validados</div></div>
+    </div>
+  </div>
+
+  <!-- Barra de Alertas -->
+  <div class="bg-[#fdfaf6] border border-[#f0e6d2] rounded-xl p-4 flex items-center justify-between">
+    <div class="flex items-center gap-3 text-[#8b6f47]">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+      <span class="text-sm font-medium"><strong class="font-bold">Alertas en vivo activadas.</strong> Te notificamos cuando una cuadrilla inspeccione, inicie obra o marque un reporte como resuelto.</span>
+    </div>
+    <div class="flex items-center gap-2 text-xs font-bold text-[#8b6f47]">
+      <span>Email + WebPush</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+  </div>
+
+  <!-- Contenido Principal: Lista y Mapa -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Columna Izquierda: Lista de Reportes -->
+    <div class="lg:col-span-2 space-y-6">
+      
+      <!-- Tabs Funcionales -->
+      <div class="flex items-center justify-between">
+        <div class="flex gap-2 bg-slate-100 p-1 rounded-xl">
+          <button (click)="cambiarTab('todas')" 
+                  [ngClass]="tabActiva === 'todas' ? 'bg-teal-800 text-white' : 'text-slate-600 hover:bg-white'"
+                  class="px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+            Todas (11)
+          </button>
+          <button (click)="cambiarTab('mios')" 
+                  [ngClass]="tabActiva === 'mios' ? 'bg-teal-800 text-white' : 'text-slate-600 hover:bg-white'"
+                  class="px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+            Mis reportes (3)
+          </button>
+          <button (click)="cambiarTab('seguidos')" 
+                  [ngClass]="tabActiva === 'seguidos' ? 'bg-teal-800 text-white' : 'text-slate-600 hover:bg-white'"
+                  class="px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+            Seguidos (8)
+          </button>
+          <button (click)="cambiarTab('resueltas')" 
+                  [ngClass]="tabActiva === 'resueltas' ? 'bg-teal-800 text-white' : 'text-slate-600 hover:bg-white'"
+                  class="px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+            Resueltas (4)
+          </button>
+        </div>
+        <div class="text-sm text-slate-500 font-medium flex items-center gap-1">Ordenar por: <span class="font-bold text-slate-800 cursor-pointer flex items-center gap-1">Más recientes <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span></div>
+      </div>
+
+      <!-- Tarjeta de Reporte (Se muestra si la pestaña es 'todas' o 'mios') -->
+      <div *ngIf="tabActiva === 'todas' || tabActiva === 'mios'" class="bg-white rounded-2xl border border-teal-100 shadow-[0_4px_20px_rgb(0,0,0,0.05)] p-6 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-1 h-full bg-teal-600"></div>
+        
+        <div class="flex justify-between items-start mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md text-teal-700 bg-teal-50 border border-teal-100">Agua & Saneamiento</span>
+            <span class="text-xs text-slate-400 font-medium">#INC-2024-8849</span>
+            <span class="text-xs text-slate-400 font-medium">• Reportado por ti</span>
+            <span class="text-xs text-slate-400 font-medium flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Hace 3 horas</span>
+          </div>
+          <span class="bg-rose-50 text-rose-600 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 border border-rose-100"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> En cuadrilla</span>
+        </div>
+
+        <h2 class="text-xl font-bold text-slate-900 mb-1">Fuga de agua potable de alto caudal en calzada</h2>
+        <p class="text-sm text-slate-500 mb-6 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Defensa 642, esquina Chile • San Telmo</p>
+
+        <!-- Barra de Progreso -->
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold text-slate-700 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Paso actual: Reparación de válvula de presión en curso</span>
+            <span class="text-xs font-extrabold text-teal-700">66% completado</span>
+          </div>
+          <div class="w-full bg-slate-200 rounded-full h-2 mb-3">
+            <div class="bg-teal-700 h-2 rounded-full" style="width: 66%"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-500 font-medium">
+            <span class="flex items-center gap-1"><svg class="w-3 h-3 text-teal-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Recibido (08:15)</span>
+            <span class="flex items-center gap-1"><svg class="w-3 h-3 text-teal-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Cuadrilla en sitio (10:20)</span>
+            <span class="text-slate-400">Pruebas de presión (Est. 13:45)</span>
+          </div>
+        </div>
+
+        <!-- Footer Tarjeta -->
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            <span class="text-sm font-bold text-slate-800">28 vecinos</span>
+            <span class="text-sm text-slate-500">respaldaron este reclamo</span>
+          </div>
+          <div class="flex gap-3">
+            <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Añadir nota
+            </button>
+            <button class="bg-teal-900 hover:bg-teal-950 text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md transition-colors">
+              Ver ficha y comentarios <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje de "No hay reportes" si se selecciona una pestaña vacía -->
+      <div *ngIf="tabActiva === 'seguidos' || tabActiva === 'resueltas'" class="bg-white rounded-2xl border border-slate-200 p-10 text-center flex flex-col items-center justify-center shadow-sm">
+        <svg class="w-12 h-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <h3 class="text-lg font-bold text-slate-700 mb-1">No hay reportes en esta categoría</h3>
+        <p class="text-sm text-slate-500">Cuando tengas reportes en estado "{{ tabActiva }}", aparecerán aquí.</p>
+      </div>
+
+    </div>
+
+    <!-- Columna Derecha: Tu Radio Comunal -->
+    <div class="space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-slate-800 flex items-center gap-2"><svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Tu Radio Comunal</h3>
+          <span class="text-[10px] font-bold text-teal-800 bg-teal-50 px-2 py-1 rounded-md">1.2 km²</span>
+        </div>
+        
+        <!-- Mapa Miniatura Simulado -->
+        <div class="bg-slate-200 h-48 rounded-xl border border-slate-300 relative overflow-hidden mb-4">
+          <div class="absolute inset-0 flex items-center justify-center">
+             <div class="w-16 h-16 bg-teal-500/20 rounded-full flex items-center justify-center animate-pulse">
+               <div class="w-4 h-4 bg-teal-700 rounded-full border-2 border-white shadow-md"></div>
+             </div>
+          </div>
+          <div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur text-[10px] font-bold text-slate-700 px-2 py-1 rounded-md shadow-sm border border-slate-200">
+            San Telmo • Comuna 1
+          </div>
+        </div>
+        
+        <p class="text-xs text-slate-500 leading-relaxed mb-4">Tus seguimientos priorizan las cuadrillas activas entre Av. San Juan, Paseo Colón y 9 de Julio.</p>
+        
+        <button routerLink="/mapa" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+          Abrir Mapa de Fiscalización
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
