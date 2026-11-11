@@ -12,5 +12,7 @@ export const routes: Routes = [
       { path: 'reportar', loadComponent: () => import('./features/reportar/reportar').then(m => m.ReportarComponent) },
       { path: 'seguimientos', loadComponent: () => import('./features/seguimientos/seguimientos').then(m => m.SeguimientosComponent) }
     ]
-  }
+  },
+  { path: 'login', loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent) },
+  { path: 'register', loadComponent: () => import('./features/auth/register/register').then(m => m.RegisterComponent) }
 ];
