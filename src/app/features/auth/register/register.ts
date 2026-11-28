@@ -15,16 +15,29 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  nombre = '';
+  apellido = '';
   email = '';
   password = '';
   errorMessage = signal('');
   isLoading = signal(false);
 
   async onSubmit() {
-    this.isLoading.set(true);
     this.errorMessage.set('');
+
+    if (!this.nombre.trim() || !this.apellido.trim()) {
+      this.errorMessage.set('Escribe tu nombre y apellido.');
+      return;
+    }
+
+    this.isLoading.set(true);
     try {
-      await this.authService.register(this.email, this.password);
+      await this.authService.register(
+        this.nombre.trim(),
+        this.apellido.trim(),
+        this.email,
+        this.password
+      );
       alert('Registro exitoso. Revisa tu correo para confirmar (si Supabase lo requiere).');
       this.router.navigate(['/login']);
     } catch (error: any) {

@@ -1,53 +1,67 @@
 <div class="flex flex-col h-screen w-full bg-[#f8f9fa] text-slate-800 font-sans overflow-hidden">
   
   <!-- NAVBAR SUPERIOR -->
-  <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 z-50 relative shadow-sm">
+  <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between gap-4 px-4 xl:px-8 shrink-0 z-50 relative shadow-sm">
     
     <!-- Logo -->
-    <div class="flex items-center gap-3">
+    <a routerLink="/" title="Ir al inicio" class="flex items-center gap-3 shrink-0">
       <div class="w-10 h-10 rounded-xl bg-teal-700 grid place-items-center text-white shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </div>
-      <div class="leading-tight">
+      <div class="leading-tight whitespace-nowrap">
         <div class="font-bold text-slate-900 text-lg tracking-tight">Voz Urbana</div>
-        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Plataforma Vecinal</div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Gestión De Incidencias</div>
       </div>
-    </div>
+    </a>
+    
 
     <!-- Enlaces de Navegación (Centro) -->
-    <nav class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
-      <a routerLink="/mapa" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Explorar Mapa</a>
-      <a routerLink="/reportar" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Reportar Incidencia</a>
-      <a routerLink="/seguimientos" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Mis Seguimientos</a>
-      <a routerLink="/gestion" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-5 py-2 rounded-lg text-sm text-slate-600 hover:text-slate-900 transition-all">Gestión (CRUD)</a>
+    <nav class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100 shrink-0">
+      <a routerLink="/mapa" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-3 xl:px-5 py-2 rounded-lg text-sm whitespace-nowrap text-slate-600 hover:text-slate-900 transition-all">Explorar Mapa</a>
+      <a routerLink="/reportar" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-3 xl:px-5 py-2 rounded-lg text-sm whitespace-nowrap text-slate-600 hover:text-slate-900 transition-all">Reportar Incidencia</a>
+      <a routerLink="/seguimientos" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-3 xl:px-5 py-2 rounded-lg text-sm whitespace-nowrap text-slate-600 hover:text-slate-900 transition-all">Mis Seguimientos @if (avisos() > 0) {
+          <span class="ml-1.5 inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold">{{ avisos() }}</span>
+        }</a>
+      @if (esOperador()){
+      <a routerLink="/gestion" routerLinkActive="bg-white shadow-sm text-teal-800 font-semibold" class="px-3 xl:px-5 py-2 rounded-lg text-sm whitespace-nowrap text-slate-600 hover:text-slate-900 transition-all">Gestión</a>
+      }
     </nav>
 
     <!-- Acciones (Derecha) -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 min-w-0">
       
       <!-- Barra de Búsqueda CONECTADA -->
+      @if (enMapa()) {
       <div class="relative hidden lg:block">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         <input type="text" 
                [ngModel]="searchTerm()" 
                (ngModelChange)="onSearchChange($event)" 
                placeholder="Buscar..." 
-               class="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 w-64">
+               class="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 w-36 xl:w-52">
       </div>
-
+      }
       <!-- Panel de Usuario y Logout -->
-      <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
-        <span class="text-sm font-medium text-slate-600 hidden md:block">
-          Hola, <strong class="text-teal-800">{{ userEmail() }}</strong>
+            <!-- Panel de Usuario y Logout -->
+      <div class="flex items-center gap-3 pl-4 border-l border-slate-200 shrink-0">
+        <span class="text-sm font-medium text-slate-600 hidden md:block whitespace-nowrap">
+          Hola, <strong class="text-teal-800">{{ userName() }}</strong>
         </span>
-        <button (click)="logout()" 
-                class="text-sm font-bold text-rose-600 hover:text-rose-800 transition-colors border border-rose-200 px-3 py-1.5 rounded-lg hover:bg-rose-50 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-          Salir
-        </button>
+        @if (haySesion()) {
+          <button (click)="logout()"
+                  class="text-sm font-bold text-rose-600 hover:text-rose-800 transition-colors border border-rose-200 px-3 py-1.5 rounded-lg hover:bg-rose-50 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            Salir
+          </button>
+        } @else {
+          <a routerLink="/login"
+             class="text-sm font-bold text-teal-700 hover:text-teal-900 transition-colors border border-teal-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 whitespace-nowrap">
+            Iniciar sesión
+          </a>
+        }
       </div>
 
     </div>

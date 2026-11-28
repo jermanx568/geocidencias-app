@@ -1,38 +1,297 @@
-<div class="p-8 h-full overflow-y-auto bg-[#f8f9fa]">
-  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-    <table class="w-full text-left border-collapse">
-      <thead class="bg-slate-50 border-b border-slate-200">
-        <tr>
-          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Reporte</th>
-          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Parroquia</th>
-          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Estatus</th>
-          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
-          <th class="p-5 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100">
-        <tr *ngFor="let inc of incidencias" class="hover:bg-slate-50/80 transition-colors">
-          <td class="p-5">
-            <div class="font-semibold text-slate-800 text-sm">{{ inc.title }}</div>
-            <div class="text-xs text-slate-500 mt-1 line-clamp-1">{{ inc.desc }}</div>
-          </td>
-          <td class="p-5 text-sm text-slate-600 font-medium">{{ inc.par }}</td>
-          <td class="p-5">
-            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase"
-                  [ngClass]="{
-                    'bg-red-50 text-red-700': inc.st === 'pendiente',
-                    'bg-amber-50 text-amber-700': inc.st === 'proceso',
-                    'bg-green-50 text-green-700': inc.st === 'resuelto'
-                  }">
-              {{ inc.st }}
-            </span>
-          </td>
-          <td class="p-5 text-sm text-slate-500">{{ inc.date }}</td>
-          <td class="p-5 text-right">
-            <button (click)="irAlMapa()" class="text-sm font-semibold text-teal-600 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-lg transition-colors">Ver en mapa</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="p-8 h-full overflow-y-auto bg-[#f8f9fa] space-y-6">
+
+  <!-- Encabezado -->
+  <div class="flex items-start justify-between flex-wrap gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Panel de gestión</h1>
+      <p class="text-slate-500">Atiende las incidencias, cambia su estado y haz seguimiento.</p>
+    </div>
+    <button (click)="cargar()" [disabled]="cargando()"
+            class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg font-semibold text-sm shadow-sm hover:bg-slate-50 disabled:opacity-50">
+      ↻ Actualizar
+    </button>
   </div>
+
+    <!-- Pestañas de moderación -->
+  <div class="flex flex-wrap gap-2">
+    @for (t of pestanas(); track t.id) {
+      <button (click)="vista.set(t.id)"
+              [ngClass]="vista() === t.id ? 'bg-teal-800 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'"
+              class="px-4 py-2 rounded-full text-sm font-bold transition-colors">
+        {{ t.texto }} ({{ t.n }})
+      </button>
+    }
+  </div>
+
+  @if (vista() !== 'publicadas') {
+    @if (error()) {
+      <div class="bg-rose-50 text-rose-600 p-4 rounded-xl text-sm font-medium border border-rose-100">{{ error() }}</div>
+    }
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-slate-50 border-b border-slate-200">
+            <tr>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Reporte</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Dirección</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Reportó</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            @if (cargando()) {
+              <tr><td colspan="5" class="p-10 text-center text-slate-500">Cargando incidencias...</td></tr>
+            } @else if (!listaModeracion().length) {
+              <tr><td colspan="5" class="p-10 text-center text-slate-500">No hay reportes en esta lista.</td></tr>
+            }
+            @for (i of listaModeracion(); track i.id) {
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4">
+                  <div class="font-semibold text-slate-800 text-sm">{{ i.title }}</div>
+                  <div class="text-xs text-slate-500 mt-1">#{{ i.id }} · {{ info(i.cat).emoji }} {{ i.cat_nombre || info(i.cat).nombre }}</div>
+                  @if (i.moderacion === 'rechazada') {
+                    <div class="text-xs text-rose-600 mt-1">Motivo: {{ i.motivo_rechazo }}</div>
+                  }
+                </td>
+                <td class="p-4 text-sm text-slate-600 max-w-[260px]"><span class="line-clamp-2">{{ i.par }}</span></td>
+                <td class="p-4 text-sm text-slate-600">{{ i.autor }}</td>
+                <td class="p-4 text-sm text-slate-500 whitespace-nowrap">{{ i.date }}</td>
+                <td class="p-4 text-right whitespace-nowrap space-x-2">
+                  <button (click)="seleccion.set(i)"
+                          class="text-sm font-semibold text-teal-700 hover:text-teal-900 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-lg transition-colors">Detalle</button>
+                  <button (click)="aprobar(i)" [disabled]="guardando()"
+                          class="text-sm font-bold text-white bg-teal-700 hover:bg-teal-800 px-3 py-1.5 rounded-lg disabled:opacity-60">Aprobar</button>
+                  @if (i.moderacion === 'en_revision') {
+                    <button (click)="rechazar(i)" [disabled]="guardando()"
+                            class="text-sm font-bold text-rose-600 border border-rose-200 hover:bg-rose-50 px-3 py-1.5 rounded-lg disabled:opacity-60">Rechazar</button>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (vista() === 'publicadas') {
+
+  <!-- Indicadores -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wider text-slate-500">Total</div>
+      <div class="text-3xl font-extrabold text-slate-900 mt-2">{{ total() }}</div>
+      <div class="text-xs text-slate-500 mt-1">incidencias registradas</div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wider text-slate-500">Pendientes</div>
+      <div class="text-3xl font-extrabold mt-2" style="color:#dc2626">{{ conteo()['pendiente'] }}</div>
+      <div class="text-xs text-slate-500 mt-1">por atender</div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wider text-slate-500">En proceso</div>
+      <div class="text-3xl font-extrabold mt-2" style="color:#f59e0b">{{ conteo()['proceso'] }}</div>
+      <div class="text-xs text-slate-500 mt-1">siendo atendidas</div>
+    </div>
+    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wider text-slate-500">Resueltas</div>
+      <div class="text-3xl font-extrabold mt-2" style="color:#16a34a">{{ conteo()['resuelto'] }}</div>
+      <div class="text-xs text-slate-500 mt-1">tiempo promedio: {{ promedioResolucion() }}</div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 space-y-3">
+    <div class="flex flex-wrap gap-3">
+      <input type="text" [value]="busqueda()" (input)="busqueda.set($any($event.target).value)"
+             placeholder="Buscar por título, dirección, autor o número..."
+             class="flex-1 min-w-[220px] px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+      <select [value]="filtroEstado()" (change)="filtroEstado.set($any($event.target).value)"
+              class="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+        <option value="todos">Todos los estados</option>
+        <option value="pendiente">Pendientes</option>
+        <option value="proceso">En proceso</option>
+        <option value="resuelto">Resueltas</option>
+      </select>
+
+      <select [value]="orden()" (change)="orden.set($any($event.target).value)"
+              class="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+        <option value="recientes">Más recientes</option>
+        <option value="antiguos">Más antiguas</option>
+        <option value="apoyos">Más apoyadas</option>
+      </select>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button (click)="filtroCategoria.set('todas')"
+              [ngClass]="filtroCategoria() === 'todas' ? 'bg-teal-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+              class="px-3 py-1.5 rounded-full text-xs font-bold transition-colors">Todas ({{ total() }})</button>
+      @for (c of categorias(); track c.codigo) {
+        <button (click)="filtroCategoria.set(c.codigo)"
+                [ngClass]="filtroCategoria() === c.codigo ? 'bg-teal-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+                class="px-3 py-1.5 rounded-full text-xs font-bold transition-colors">
+          {{ c.info.emoji }} {{ c.info.nombre }} ({{ c.n }})
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  @if (error()) {
+    <div class="bg-rose-50 text-rose-600 p-4 rounded-xl text-sm font-medium border border-rose-100">{{ error() }}</div>
+  }
+
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead class="bg-slate-50 border-b border-slate-200">
+          <tr>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Reporte</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Dirección</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Reportó</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Apoyos</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Estatus</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+            <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @if (cargando()) {
+            <tr><td colspan="7" class="p-10 text-center text-slate-500">Cargando incidencias...</td></tr>
+          } @else if (!filtrados().length) {
+            <tr><td colspan="7" class="p-10 text-center text-slate-500">No hay incidencias que coincidan con los filtros.</td></tr>
+          }
+          @for (i of filtrados(); track i.id) {
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="p-4">
+                <div class="font-semibold text-slate-800 text-sm">{{ i.title }}</div>
+                <div class="text-xs text-slate-500 mt-1">#{{ i.id }} · {{ info(i.cat).emoji }} {{ i.cat_nombre || info(i.cat).nombre }}</div>
+              </td>
+              <td class="p-4 text-sm text-slate-600 max-w-[260px]"><span class="line-clamp-2">{{ i.par }}</span></td>
+              <td class="p-4 text-sm text-slate-600">{{ i.autor }}</td>
+              <td class="p-4 text-sm font-bold text-slate-700">❤ {{ i.apoyos }}</td>
+              <td class="p-4">
+                <select [disabled]="guardando()"
+                        (change)="cambiarEstado(i, $any($event.target).value, $any($event.target))"
+                        [style.color]="estadoInfo(i.st).color"
+                        [style.background]="estadoInfo(i.st).fondo"
+                        [style.border-color]="estadoInfo(i.st).color"
+                        class="px-2.5 py-1.5 rounded-full text-[11px] font-bold uppercase border cursor-pointer disabled:opacity-60">
+                  @for (e of estados; track e.id) {
+                    <option [value]="e.id" [selected]="e.id === i.st">{{ e.texto }}</option>
+                  }
+                </select>
+              </td>
+              <td class="p-4 text-sm text-slate-500 whitespace-nowrap">{{ i.date }}</td>
+              <td class="p-4 text-right whitespace-nowrap">
+                <button (click)="seleccion.set(i)"
+                        class="text-sm font-semibold text-teal-700 hover:text-teal-900 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-lg transition-colors">Detalle</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
 </div>
+
+<!-- Panel de detalle -->
+@if (seleccion(); as s) {
+  <div class="fixed inset-0 z-[2000] flex justify-end bg-slate-900/40" (click)="seleccion.set(null)">
+    <aside class="w-full max-w-md bg-white h-full overflow-y-auto shadow-2xl p-6 space-y-5" (click)="$event.stopPropagation()">
+
+      <div class="flex justify-between items-start gap-3">
+        <div>
+          <div class="text-xs text-slate-400 font-medium">#{{ s.id }} · {{ s.date }}</div>
+          <h2 class="text-xl font-extrabold text-slate-900 mt-1">{{ s.title }}</h2>
+        </div>
+        <button (click)="seleccion.set(null)" class="text-slate-400 hover:text-slate-700 text-xl leading-none">✕</button>
+      </div>
+
+      <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700">
+        {{ info(s.cat).emoji }} {{ s.cat_nombre || info(s.cat).nombre }}
+      </span>
+
+      
+              @if (s.moderacion !== 'aprobada') {
+        <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-700">Moderación</div>
+          <div class="text-sm text-slate-700">
+            @if (s.moderacion === 'rechazada') {
+              Rechazada. Motivo: {{ s.motivo_rechazo }}
+            } @else {
+              Este reporte espera aprobación y aún no es público.
+            }
+          </div>
+          <div class="flex gap-2">
+            <button (click)="aprobar(s)" [disabled]="guardando()"
+                    class="flex-1 bg-teal-700 hover:bg-teal-800 text-white py-2 rounded-lg text-sm font-bold disabled:opacity-60">Aprobar</button>
+            @if (s.moderacion === 'en_revision') {
+              <button (click)="rechazar(s)" [disabled]="guardando()"
+                      class="flex-1 text-rose-600 border border-rose-200 hover:bg-rose-50 py-2 rounded-lg text-sm font-bold disabled:opacity-60">Rechazar</button>
+            }
+          </div>
+        </div>
+      }
+
+      @if (s.moderacion === 'aprobada') {
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Cambiar estado</div>
+        <div class="grid grid-cols-3 gap-2">
+          @for (e of estados; track e.id) {
+            <button (click)="cambiarEstado(s, e.id)" [disabled]="guardando()"
+                    [style.background]="s.st === e.id ? e.color : '#fff'"
+                    [style.color]="s.st === e.id ? '#fff' : e.color"
+                    [style.border-color]="e.color"
+                    class="border rounded-lg py-2 text-xs font-bold transition-colors disabled:opacity-60">{{ e.texto }}</button>
+          }
+        </div>
+      </div>
+}
+      <div class="space-y-3 text-sm">
+        <div><div class="text-xs font-bold uppercase tracking-wider text-slate-500">Dirección</div><div class="text-slate-700">📍 {{ s.par }}</div></div>
+        <div><div class="text-xs font-bold uppercase tracking-wider text-slate-500">Descripción</div><div class="text-slate-700">{{ s.descr || 'Sin descripción.' }}</div></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><div class="text-xs font-bold uppercase tracking-wider text-slate-500">Reportó</div><div class="text-slate-700">{{ s.autor }}</div></div>
+          <div><div class="text-xs font-bold uppercase tracking-wider text-slate-500">Apoyos</div><div class="text-slate-700">❤ {{ s.apoyos }} {{ s.apoyos === 1 ? 'vecino' : 'vecinos' }}</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Evidencia</div>
+        @if (s.fotos?.length) {
+          <div class="flex flex-wrap gap-2">
+            @for (f of s.fotos; track f) {
+              <a [href]="f" target="_blank" rel="noopener">
+                <img [src]="f" alt="Evidencia" loading="lazy" class="w-24 h-24 object-cover rounded-lg border border-slate-200">
+              </a>
+            }
+          </div>
+        } @else {
+          <div class="text-sm text-slate-400">Sin fotos adjuntas.</div>
+        }
+      </div>
+
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Historial de estados</div>
+        <ol class="space-y-2">
+          @for (h of s.historial; track h.fecha + h.estado) {
+            <li class="flex items-center gap-3 text-sm">
+              <span class="w-2.5 h-2.5 rounded-full shrink-0" [style.background]="estadoInfo(h.estado).color"></span>
+              <span class="font-semibold text-slate-700">{{ estadoInfo(h.estado).texto }}</span>
+              <span class="text-slate-400 text-xs">{{ fecha(h.fecha) }}</span>
+            </li>
+          }
+        </ol>
+      </div>
+
+      <div class="flex gap-3 pt-4 border-t border-slate-100">
+        <button (click)="verEnMapa(s)" [disabled]="s.moderacion !== 'aprobada'" class="disabled:opacity-40 flex-1 bg-teal-900 hover:bg-teal-950 text-white py-2.5 rounded-lg text-sm font-bold">Ver en el mapa</button>
+        <button (click)="eliminar(s)" class="px-4 py-2.5 rounded-lg text-sm font-bold text-rose-600 border border-rose-200 hover:bg-rose-50">Eliminar</button>
+      </div>
+    </aside>
+  </div> 
+}

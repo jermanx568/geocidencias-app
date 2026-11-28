@@ -1,0 +1,13 @@
+{
+  "/api/nominatim": {
+    "target": "https://nominatim.openstreetmap.org",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/nominatim": ""
+    },
+    "headers": {
+      "User-Agent": "GeoIncidenciasApp/1.0 (tu-correo@ejemplo.com)"
+    }
+  }
+}
